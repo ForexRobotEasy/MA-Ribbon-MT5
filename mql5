@@ -1,0 +1,125 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                                MA Ribbon MT5.mq5 |
+//|                                 Copyright 2021, Your Company Name |
+//|                                             https://www.yourwebsite.com |
+//+------------------------------------------------------------------+
+#property copyright 'Copyright 2021, Your Company Name'
+#property link      'https://www.yourwebsite.com'
+#property version   '1.00'
+#property indicator_chart_window
+
+// Input parameters
+input int MA_Period1=10; // Moving average period 1
+input int MA_Period2=20; // Moving average period 2
+input int MA_Period3=30; // Moving average period 3
+input int MA_Period4=40; // Moving average period 4
+input int MA_Period5=50; // Moving average period 5
+input int MA_Period6=60; // Moving average period 6
+input int MA_Period7=70; // Moving average period 7
+input int MA_Period8=80; // Moving average period 8
+
+// Global variables
+double ma_buffer1[];
+double ma_buffer2[];
+double ma_buffer3[];
+double ma_buffer4[];
+double ma_buffer5[];
+double ma_buffer6[];
+double ma_buffer7[];
+double ma_buffer8[];
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Set indicator buffers
+   SetIndexBuffer(0, ma_buffer1);
+   SetIndexBuffer(1, ma_buffer2);
+   SetIndexBuffer(2, ma_buffer3);
+   SetIndexBuffer(3, ma_buffer4);
+   SetIndexBuffer(4, ma_buffer5);
+   SetIndexBuffer(5, ma_buffer6);
+   SetIndexBuffer(6, ma_buffer7);
+   SetIndexBuffer(7, ma_buffer8);
+
+   // Set indicator labels
+   SetIndexLabel(0, 'MA1');
+   SetIndexLabel(1, 'MA2');
+   SetIndexLabel(2, 'MA3');
+   SetIndexLabel(3, 'MA4');
+   SetIndexLabel(4, 'MA5');
+   SetIndexLabel(5, 'MA6');
+   SetIndexLabel(6, 'MA7');
+   SetIndexLabel(7, 'MA8');
+
+   // Set indicator style
+   SetIndexStyle(0, DRAW_LINE);
+   SetIndexStyle(1, DRAW_LINE);
+   SetIndexStyle(2, DRAW_LINE);
+   SetIndexStyle(3, DRAW_LINE);
+   SetIndexStyle(4, DRAW_LINE);
+   SetIndexStyle(5, DRAW_LINE);
+   SetIndexStyle(6, DRAW_LINE);
+   SetIndexStyle(7, DRAW_LINE);
+
+   // Set indicator colors
+   SetIndexColor(0, Blue);
+   SetIndexColor(1, Green);
+   SetIndexColor(2, Red);
+   SetIndexColor(3, Yellow);
+   SetIndexColor(4, Magenta);
+   SetIndexColor(5, Cyan);
+   SetIndexColor(6, DarkRed);
+   SetIndexColor(7, Orange);
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+   // Calculate moving averages
+   ArraySetAsSeries(ma_buffer1, true);
+   ArraySetAsSeries(ma_buffer2, true);
+   ArraySetAsSeries(ma_buffer3, true);
+   ArraySetAsSeries(ma_buffer4, true);
+   ArraySetAsSeries(ma_buffer5, true);
+   ArraySetAsSeries(ma_buffer6, true);
+   ArraySetAsSeries(ma_buffer7, true);
+   ArraySetAsSeries(ma_buffer8, true);
+   ArrayInitialize(ma_buffer1, 0);
+   ArrayInitialize(ma_buffer2, 0);
+   ArrayInitialize(ma_buffer3, 0);
+   ArrayInitialize(ma_buffer4, 0);
+   ArrayInitialize(ma_buffer5, 0);
+   ArrayInitialize(ma_buffer6, 0);
+   ArrayInitialize(ma_buffer7, 0);
+   ArrayInitialize(ma_buffer8, 0);
+
+   for (int i = 0; i < rates_total; i++)
+   {
+      ma_buffer1[i] = iMA(NULL, 0, MA_Period1, 0, MODE_EMA, PRICE_CLOSE, i);
+      ma_buffer2[i] = iMA(NULL, 0, MA_Period2, 0, MODE_EMA, PRICE_CLOSE, i);
+      ma_buffer3[i] = iMA(NULL, 0, MA_Period3, 0, MODE_EMA, PRICE_CLOSE, i);
+      ma_buffer4[i] = iMA(NULL, 0, MA_Period4, 0, MODE_EMA, PRICE_CLOSE, i);
+      ma_buffer5[i] = iMA(NULL, 0, MA_Period5, 0, MODE_EMA, PRICE_CLOSE, i);
+      ma_buffer6[i] = iMA(NULL, 0, MA_Period6, 0, MODE_EMA, PRICE_CLOSE, i);
+      ma_buffer7[i] = iMA(NULL, 0, MA_Period7, 0, MODE_EMA, PRICE_CLOSE, i);
+      ma_buffer8[i] = iMA(NULL, 0, MA_Period8, 0, MODE_EMA, PRICE_CLOSE, i);
+   }
+
+   return(rates_total);
+}
